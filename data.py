@@ -15,7 +15,7 @@ import torch
 from PIL import Image 
 
 def load_OpenCV(f): 
-    arr = cv2.imread(f)[:,:,::-1] #,cv2.IMREAD_UNCHANGED)[:,:,::-1] 
+    arr = cv2.imread(f)[:,:,::-1]
     return arr
     
 def load_PIL(f): 
@@ -109,15 +109,14 @@ def gen_video(x, norm_s, scale=[0.75,1.25], depth=[0.75,1.25], n=1.33, mode='val
         deformed = F.interpolate(deformed, scale_factor=0.5, mode='bilinear', antialias=True)
     return torch.nan_to_num(deformed.view(B,L,-1,H,W)).clip(0,1)
 
-class SEALS_Dataset(Dataset):
+class MFIR_Dataset(Dataset):
     def __init__(self, 
-                 path_b='/data/sandbox/mshugaev/SEALS/data/synthetic_data_cvpr_092225/backgrounds', 
-                 path_w='/data/sandbox/mshugaev/SEALS/data/synthetic_data_cvpr_092225/wave_profiles/Ocean_waves',
+                 path_b='./dataset_refractive_mfir_benchmark/backgrounds', 
+                 path_w='./dataset_refractive_mfir_benchmark/wave_profiles/Ocean_waves',
                  mode='val', sz=(512,512), L=49, Lmax=200, depth=1.0, scale=1.0, n=1.33, Nmax=-1, stride=1,
                  crop_wave=True, model_path = "THUDM/CogVideoX-2b", Ltext=226, fast=False, 
                  val_subset=True, x2_sample=False,
                  **kwargs):
-        #assert stride > 0 and stride <= Lmax//L, 'incorrect stride'
         self.path_b, self.path_w = path_b, path_w
         self.mode = mode
         self.sz,self.L = sz,L
@@ -160,7 +159,6 @@ class SEALS_Dataset(Dataset):
             idx = self.ids[idx]  
             idx_wave = idx%len(self.waves)
             idx_background = idx//len(self.waves)
-            #print(idx,idx_wave,idx_background)
             
             try:
                 img = load_PIL(self.backgrounds[idx_background])
@@ -222,15 +220,14 @@ class SEALS_Dataset(Dataset):
                 'prompt':ids,
                }   
                
-class SEALS_Dataset_gt(Dataset):
+class MFIR_Dataset_gt(Dataset):
     def __init__(self, 
-                 path_b='/data/sandbox/mshugaev/SEALS/data/synthetic_data_cvpr_092225/backgrounds', 
-                 path_w='/data/sandbox/mshugaev/SEALS/data/synthetic_data_cvpr_092225/wave_profiles/Ocean_waves',
+                 path_b='./dataset_refractive_mfir_benchmark/backgrounds', 
+                 path_w='./dataset_refractive_mfir_benchmark/wave_profiles/Ocean_waves',
                  mode='val', sz=(512,512), L=49, Lmax=200, depth=1.0, scale=1.0, n=1.33, Nmax=-1, stride=1,
                  crop_wave=True, model_path = "THUDM/CogVideoX-2b", Ltext=226, fast=False, 
                  val_subset=True,
                  **kwargs):
-        #assert stride > 0 and stride <= Lmax//L, 'incorrect stride'
         self.path_b, self.path_w = path_b, path_w
         self.mode = mode
         self.sz,self.L = sz,L

@@ -8,7 +8,7 @@ import numpy as np
 from tqdm.auto import tqdm
 from collections import OrderedDict
 
-from data import SEALS_Dataset, gen_video, SEALS_Dataset_gt
+from data import MFIR_Dataset, gen_video, MFIR_Dataset_gt
 from metrics import LPIPS_metric, ZS_IQA
 from torchmetrics.image import StructuralSimilarityIndexMeasure, PeakSignalNoiseRatio
 from img_gen import gen_img_ref, gen_img_mean, gen_DATUM, gen_Grid_registration, gen_FILE, gen_VIDEO
@@ -32,8 +32,8 @@ def _run(args):
     path_w = os.path.join(args.dataset_root,'wave_profiles',paths[args.wave_type])
     path_b = os.path.join(args.dataset_root,'backgrounds')
 
-    ds_gt = SEALS_Dataset_gt(path_w=path_w, path_b=path_b)
-    ds = SEALS_Dataset(path_w=path_w, path_b=path_b, depth=amplitude, scale=amplitude, fast=True, L=args.L)
+    ds_gt = MFIR_Dataset_gt(path_w=path_w, path_b=path_b)
+    ds = MFIR_Dataset(path_w=path_w, path_b=path_b, depth=amplitude, scale=amplitude, fast=True, L=args.L)
 
     ssim_metric = StructuralSimilarityIndexMeasure(data_range=1.0).to(device)
     psnr_metric = PeakSignalNoiseRatio(data_range=1.0).to(device)
@@ -101,7 +101,7 @@ def _run(args):
 
 if __name__ == "__main__":
     parser = ArgumentParser()
-    parser.add_argument('--dataset_root', type=str, default='./video_restoration_benchmark_data') # path to wave profiles and backgrounds
+    parser.add_argument('--dataset_root', type=str, default='./dataset_refractive_mfir_benchmark') # path to wave profiles and backgrounds
     parser.add_argument('--L', type=int, default=1)                     # number of frames
     parser.add_argument('--wave_type', type=str, default='ocean')       # wave type: ocean | shallow | sine | ripple
     parser.add_argument('--amplitude', type=str, default='low')         # wave amplitude: low | mid | high | extreme
