@@ -4,6 +4,7 @@ import torch.nn.functional as F
 import numpy as np
 import cv2
 from collections import OrderedDict
+from unsupervised_ndir_model_original_style import UnsupervisedNDIRModel
 
 def gen_img_ref(x0,k=None):
     return (x0['ref_video']*255).byte()
@@ -229,3 +230,45 @@ class gen_VIDEO:
         pred = torch.stack(pred,0).to(self.device)
             
         return pred
+        
+
+class gen_UNSUPERVISED_NDIR:
+    def __init__(
+        self,
+        batch_size=10,
+        scale_factor=1,
+        num_iter_i=1000,
+        num_iter=1000,
+        FB_img=8,
+        vec_scale=1.1,
+        start_frame=1,
+        wave_cycle=21.4,
+        num_samples=10,
+        output_mode='sequence',
+        device='cuda',
+        **kwargs
+    ):
+        self.model = UnsupervisedNDIRModel(
+            batch_size=batch_size,
+            scale_factor=scale_factor,
+            num_iter_i=num_iter_i,
+            num_iter=num_iter,
+            FB_img=FB_img,
+            vec_scale=vec_scale,
+            start_frame=start_frame,
+            wave_cycle=wave_cycle,
+            num_samples=num_samples,
+            output_mode=output_mode,
+            device=device
+        )
+        self.device = device
+
+    def __call__(self, x0, k=None):
+        ref_video = x0['ref_video'].float().to(self.device)
+
+        if ref_video.max() > 1.0:
+            ref_video = ref_video / 255.0
+
+        pred = self.model(ref_video).clip(0,1)[0] #Lx3xHxW
+        return (pred * 255).byte()
+    

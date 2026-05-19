@@ -1,3 +1,4 @@
+
 from argparse import ArgumentParser
 import glob, os
 import torch
@@ -11,7 +12,7 @@ from collections import OrderedDict
 from data import MFIR_Dataset, gen_video, MFIR_Dataset_gt
 from metrics import LPIPS_metric, ZS_IQA
 from torchmetrics.image import StructuralSimilarityIndexMeasure, PeakSignalNoiseRatio
-from img_gen import gen_img_ref, gen_img_mean, gen_DATUM, gen_Grid_registration, gen_FILE, gen_VIDEO
+from img_gen import gen_img_ref, gen_img_mean, gen_DATUM, gen_Grid_registration, gen_FILE, gen_VIDEO, gen_UNSUPERVISED_NDIR
 
 amplitudes = {
     'ocean':{'low':0.329, 'mid':0.574, 'high':0.983, 'extreme':1.642},
@@ -48,7 +49,8 @@ def _run(args):
     elif args.method == 'datum': gen_img = gen_DATUM()
     elif args.method == 'file': gen_img = gen_FILE(path=args.path_eval)
     elif args.method == 'video': gen_img = gen_VIDEO(path=args.path_eval, L=args.L)
-    else: raise NotImplementedError("Invalid method")
+    elif args.method == 'grid_deformation': gen_img = gen_UNSUPERVISED_NDIR(path=args.path_eval, L=args.L)
+    else: raise NotImplementedError(f'Invalid method {args.method}')
 
     scores = []
     for k in tqdm(range(len(ds))):
@@ -105,8 +107,7 @@ if __name__ == "__main__":
     parser.add_argument('--L', type=int, default=1)                     # number of frames
     parser.add_argument('--wave_type', type=str, default='ocean')       # wave type: ocean | shallow | sine | ripple
     parser.add_argument('--amplitude', type=str, default='low')         # wave amplitude: low | mid | high | extreme
-    parser.add_argument('--method', type=str, default='ref')            # method: ref | mean | grid_registration | datum
+    parser.add_argument('--method', type=str, default='ref')            # method: ref | mean | grid_registration | datum | grid_deformation
     parser.add_argument('--path_eval', type=str, default='')            # path for eval on image or video (method file | video)
     args = parser.parse_args()
     _run(args)
-
