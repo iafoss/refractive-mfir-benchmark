@@ -29,9 +29,9 @@ The benchmark enables controlled and reproducible evaluation by generating disto
 |--method|evaluated method ref/mean/grid\_registration/grid\_deformation/datum|
 
 ```
-python eval.py --dataset\_root ${your\_data\_path} --L 1 --wave\_type ocean --amplitude low --method ref
-python eval.py --dataset\_root ${your\_data\_path} --L 49 --wave\_type ripple --amplitude mid --method datum
-python eval.py --dataset\_root ${your\_data\_path} --L 200 --wave\_type sine --amplitude high --method grid\_registration
+python eval.py --dataset_root ${your_data_path} --L 1 --wave_type ocean --amplitude low --method ref
+python eval.py --dataset_root ${your_data_path} --L 49 --wave_type ripple --amplitude mid --method datum
+python eval.py --dataset_root ${your_data_path} --L 200 --wave_type sine --amplitude high --method grid_registration
 ```
 
 Download the provided dataset for wave profiles and backgrounds.
@@ -41,6 +41,14 @@ Download the provided dataset for wave profiles and backgrounds.
 Please consider citing our work as follows if it is helpful.
 
 ```
-
+@misc{shugaev2026unifiedbenchmarkmultiframeimage,
+      title={A unified Benchmark for Multi-Frame Image Restoration under Severe Refractive Warping}, 
+      author={Maxim V. Shugaev and Md Reshad Ul Hoque and Bridget Kennedy and Joseph T. Riley and Fiona Hwang and Justin Hagen and Harvir Ghuman and Ethan Garcia-O'Donnell and Syed Noor Qadri and Freddie Santiago and Mun Wai Lee},
+      year={2026},
+      eprint={2605.05079},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2605.05079}, 
+}
 ```
 
