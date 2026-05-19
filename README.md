@@ -4,13 +4,13 @@
 
 </div>
 
-### \[Paper](https://arxiv.org/abs/2605.05079v1) | [Dataset](https://zenodo.org/records/19390086)
+### [Paper](https://arxiv.org/abs/2605.05079v1) | [Dataset](https://zenodo.org/records/19390086)
 
 <p align="center">
-<img src="assets/mean\_pixel\_r1.png" width="700">
-<img src="assets/Ocean\_extreme\_0\_720.gif" width="700" height="auto" />
-<img src="assets/Ocean\_extreme\_2\_720.gif" width="700" height="auto" />
-<img src="assets/Ocean\_extreme\_5\_720.gif" width="700" height="auto" />
+<img src="assets/mean_pixel_r1.png" width="700">
+<img src="assets/Ocean_extreme_0_720.gif" width="700" height="auto" />
+<img src="assets/Ocean_extreme_2_720.gif" width="700" height="auto" />
+<img src="assets/Ocean_extreme_5_720.gif" width="700" height="auto" />
 </p>
 
 Official implementation of "A unified Benchmark for Multi-Frame Image Restoration under Severe Refractive Warping" (CVPR 2026).
