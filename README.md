@@ -6,17 +6,17 @@
 
 ### [Paper](https://arxiv.org/abs/2605.05079v1) | [Dataset](https://zenodo.org/records/19390086)
 
+Official implementation of "A unified Benchmark for Multi-Frame Image Restoration under Severe Refractive Warping" (CVPR 2026).
+
+This project introduces a benchmark for evaluating multi-frame image reconstruction methods under severe refrctive warping conditions at air-water interface, a challenging distortion regime characterized by spatially varying geometric deformation across frames.
+The benchmark enables controlled and reproducible evaluation by generating distorted image sequences procedurally from wave profiles for a specific wave type and background images provided with abovelisted dataset.
+
 <p align="center">
 <img src="assets/mean_pixel_r1.png" width="700">
 <img src="assets/Ocean_extreme_0_720.gif" width="700" height="auto" />
 <img src="assets/Ocean_extreme_2_720.gif" width="700" height="auto" />
 <img src="assets/Ocean_extreme_5_720.gif" width="700" height="auto" />
 </p>
-
-Official implementation of "A unified Benchmark for Multi-Frame Image Restoration under Severe Refractive Warping" (CVPR 2026).
-
-This project introduces a benchmark for evaluating multi-frame image reconstruction methods under severe refrctive warping conditions at air-water interface, a challenging distortion regime characterized by spatially varying geometric deformation across frames.
-The benchmark enables controlled and reproducible evaluation by generating distorted image sequences procedurally from wave profiles for a specific wave type and background images provided with abovelisted dataset.
 
 ## Performance Evaluation
 
